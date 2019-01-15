@@ -1,0 +1,43 @@
+<div class="nuevo-fac-tit">ESTADÍSTICA</div>
+<div class="panel-estadist">
+    <div class="mui-container-fluid">
+        <div class="mui-col-md-3" ng-if="userActivo.perfil == 'ADMIN' || userActivo.perfil == 'GOD'">
+            <div class="mui-col-md-12">
+                <div class="mui-panel" id="add-report">
+                    <h5><i class="fas fa-plus-circle"></i> Agregar Reporte</h5>
+                    <form>
+                        <div class="mui-textfield mui-textfield--float-label">
+                            <input type="text" ng-model="report.titulo">
+                            <label>Titulo</label>
+                        </div>
+                        <div class="mui-textfield mui-textfield--float-label">
+                            <input type="text" ng-model="report.url">
+                            <label>Url</label>
+                        </div>
+                        <div class="mui-textfield mui-textfield--float-label">
+                            <textarea rows="5" ng-model="report.descripcion"></textarea>
+                            <label>Descripción</label>
+                        </div>
+
+                        <button ng-click="altaReport(report)" class="mui-btn mui-btn--small mui-btn--primary mui-btn--flats">Guardar <i class="far fa-check-circle"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="mui-col-md-9">
+            <div class="mui-col-md-12" ng-repeat="report in reports">
+                <div class="mui-panel" id="item-report">
+                    <div class="cejillo"></div>
+                    <div class="mui-container">
+                        <p style="margin-top: 10px;"><b><i class="fas fa-chart-pie"></i> {{report.titulo | uppercase}}</b></p>
+                        {{report.descripcion}}
+                        <div class="buttons-item-report">
+                            <i ng-if="userActivo.perfil == 'ADMIN' || userActivo.perfil == 'GOD'" class="fas fa-trash-alt" ng-click="removeItem($index)" style="cursor: pointer" title="Eliminar"></i>
+                            <button class="mui-btn mui-btn--small mui-btn--primary" ng-click="clickToOpen(report)">ver <i class="fas fa-external-link-alt"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

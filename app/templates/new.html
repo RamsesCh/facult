@@ -1,0 +1,203 @@
+<div class="nuevo-fac-tit">NUEVO FACULTAMIENTO</div>
+<div class="panel">
+    <div class="mui-container-fluid">
+        <form name="newfacultForm" ng-submit="submitInsert()" class="mui-form" autocomplete="off">
+            <div class="mui-row" id="space-top">
+                <div class="mui-col-md-12">
+                    <h4 style="color: rgb(31, 63, 121)"><b><i class="far fa-folder"></i> Datos Generales</b></h4>
+                </div>
+            </div>
+            <div class="mui-row" id="space-top">
+                <div class="mui-col-md-3 mui-select">
+                    <select type="text" ng-model="id_tipo_fae" ng-change="tipoFAE(id_tipo_fae)">
+                    <option ng-repeat="tipo_fae in cat_tipos_fae" value="{{tipo_fae.id_tipo_fae}}">{{tipo_fae.tipo_fae}}</option>
+                    </select>
+                    <label>Tipo de F.A.E.</label>
+                </div>
+                <div class="mui-col-md-3 mui-textfield mui-textfield--float-label">
+                    <input type="text" name="siniestro" ng-model="siniestro" class="text-upp" maxlength="50" required>
+                    <label for="siniestro">Siniestro *</label>
+                    <span style="color: #F44336;" ng-show="newfacultForm.siniestro.$touched && newfacultForm.siniestro.$invalid">Campo obligatorio.</span>
+                </div>
+                <div class="mui-col-md-3 mui-textfield mui-textfield--float-label">
+                    <input type="text" name="poliza" ng-model="poliza" class="text-upp" maxlength="50" required>
+                    <label>Póliza *</label>
+                    <span style="color: #F44336;" ng-show="newfacultForm.poliza.$touched && newfacultForm.poliza.$invalid">Campo obligatorio.</span>
+                </div>
+                <div class="mui-col-md-3 mui-textfield mui-textfield--float-label">
+                    <input type="text" ng-model="reclamacion" maxlength="50" class="text-upp">
+                    <label>Reclamación</label>
+                </div>
+            </div>
+            <div class="mui-row" id="space-top">
+                <div class="mui-col-md-12">
+                    <h4 style="color: rgb(31, 63, 121)"><b><i class="far fa-user"></i> Datos del beneficiario</b></h4>
+                </div>
+            </div>
+            <div class="mui-row" id="space-top">
+                <div class="mui-col-md-4 mui-textfield mui-textfield--float-label">
+                    <input type="text" ng-model="nombre_benef" class="text-upp" maxlength="100">
+                    <label>Nombre(s)</label>
+                </div>
+                <div class="mui-col-md-4 mui-textfield mui-textfield--float-label">
+                    <input type="text" ng-model="ap_pat_benef" class="text-upp" maxlength="50">
+                    <label>Apellido Paterno</label>
+                </div>
+                <div class="mui-col-md-4 mui-textfield mui-textfield--float-label">
+                    <input type="text" ng-model="ap_mat_benef" class="text-upp" maxlength="50">
+                    <label>Apellido Materno</label>
+                </div>
+            </div>
+            <div class="mui-row" id="space-top">
+                <div class="mui-col-md-12">
+                    <h4 style="color: rgb(31, 63, 121)"><b><i class="fas fa-briefcase"></i> Datos del ramo</b></h4>
+                </div>
+            </div>
+            <div class="mui-row" id="space-top">
+                <div class="mui-col-md-4 mui-select mui-select--float-label">
+                    <select type="text" name="ramo" ng-model="id_ramo" ng-change="desFolioBarra(id_ramo)" required>
+                    <option ng-repeat="ramo in cat_ramo | filtroRamo:id_tipo_fae" value="{{ramo.id_ramo}}">{{ramo.ramo}}</option>
+                    </select>
+                    <label>Ramo *</label>
+                    <span style="color: #F44336;" ng-show="newfacultForm.ramo.$touched && newfacultForm.ramo.$invalid">Campo obligatorio.</span>
+                </div>
+                <div class="mui-col-md-4 mui-select mui-select--float-label">
+                    <select type="text" name="lineaNego" ng-model="id_linea_nego" required>
+                    <option ng-repeat="linea_nego in catLineaNego" value="{{linea_nego.id_linea_nego}}">{{linea_nego.linea_nego}}</option>
+                    </select>
+                    <label>Línea de negocio *</label>
+                    <span style="color: #F44336;" ng-show="newfacultForm.lineaNego.$touched && newfacultForm.lineaNego.$invalid">Campo obligatorio.</span>
+                </div>
+                <div class="mui-col-md-4 mui-textfield mui-textfield--float-label" ng-show="id_ramo == '1'">
+                    <input type="text" ng-model="folio_nvo_barra">
+                    <label>Folio Barra de Servicio</label>
+                </div>
+            </div>
+            <div class="mui-row" id="space-top">
+                <div class="mui-col-md-4 mui-select mui-select--float-label">
+                    <select type="text" name="tipoPago" ng-model="id_tipo_pago" required>
+                    <option ng-repeat="tipo_pago in cat_tipo_pago | filtroTipoPago:id_ramo" value="{{tipo_pago.id_tipo_pago}}">{{tipo_pago.tipo_pago}}</option>
+                    </select>
+                    <label>Tipo de Pago *</label>
+                    <span style="color: #F44336;" ng-show="newfacultForm.tipoPago.$touched && newfacultForm.tipoPago.$invalid">Campo obligatorio.</span>
+                </div>
+                <div class="mui-col-md-4 mui-select mui-select--float-label">
+                    <select type="text" name="concepto" ng-model="id_concepto" required>
+                    <option ng-repeat="concepto in cat_concepto | filtroConcepto:id_tipo_pago" value="{{concepto.id_concepto}}">{{concepto.concepto}}</option>
+                    </select>
+                    <label>Concepto *</label>
+                    <span style="color: #F44336;" ng-show="newfacultForm.concepto.$touched && newfacultForm.concepto.$invalid">Campo obligatorio.</span>
+                </div>
+            </div>
+            <div class="mui-row" id="space-top">
+                <div class="mui-col-md-12 mui-textfield mui-textfield--float-label">
+                    <textarea type="text" ng-model="causa" class="text-upp" maxlength="500" rows="5"></textarea>
+                    <label>Causa</label>
+                    <span style="color: rgba(0,0,0,.50);">Caracteres restantes: {{500 - causa.length}} / 500</span>
+                </div>
+            </div>
+            <div class="mui-row" id="space-top">
+                <div class="mui-col-md-12">
+                    <h4 style="color: rgb(31, 63, 121)"><b><i class="fas fa-dollar-sign"></i> Fondo afectado</b></h4>
+                </div>
+            </div>
+            <div class="mui-row" id="space-top">
+                <div class="mui-col-md-5 mui-select mui-select--float-label">
+                    <select type="text" name="tipoFondo" ng-model="id_tipo_fondo" ng-change="desTipoFondo(id_tipo_fondo)" ng-disabled="id_tipo_fae == 2" required>
+                    <option ng-repeat="tipo_fondo in cat_tipo_fondo" value="{{tipo_fondo.id_tipo_fondo}}">{{tipo_fondo.tipo_fondo | uppercase}}</option>
+                    </select>
+                    <label>Tipo de Fondo *</label>
+                    <span style="color: #F44336;" ng-show="newfacultForm.tipoFondo.$touched && newfacultForm.tipoFondo.$invalid">Campo obligatorio.</span>
+                </div>
+                <div class="mui-col-md-7 mui-select" ng-class="{texto_deactivate: id_funcionario == '1'}">
+                    <angucomplete-alt id="ex1" placeholder="" pause="100" selected-object="customSelected" local-data="usersFunc" search-fields="nombre,ap_pat,ap_mat,email" title-field="nombre,ap_pat,ap_mat" description-field="puesto" minlength="3" text-searching="Buscando..." text-no-results="No hay resultados." input-class="form-control form-control-small" match-class="highlight" />
+                   <label>Funcionario</label>
+                </div>
+            </div>
+            <div class="mui-row" id="space-top">
+                <div class="mui-col-md-12">
+                    <h4 style="color: rgb(31, 63, 121)"><b><i class="fas fa-dollar-sign"></i> Monto solicitado</b></h4>
+                </div>
+            </div>
+            <div class="mui-row" id="space-top">
+                <div class="mui-col-md-4 mui-textfield mui-textfield--float-label">
+                    <input type="number" step="any" name="monto" ng-model="monto_autorizado" ng-change="compMonto(id_tipo_fae)" ng-click="consultMonto(id_ramo,id_linea_nego,id_funcionario)" required>
+                    <label>Monto *</label>
+                    <span style="color: #F44336;" ng-show="newfacultForm.monto.$touched && newfacultForm.monto.$invalid">Campo obligatorio.</span>
+                </div>
+                <div class="mui-col-md-4 mui-textfield" ng-show="id_tipo_fae == '1' && id_funcionario != 350 && id_tipo_fondo != '2'">
+                    <input type="number" step="any" ng-model="fondo_actual">
+                    <label>Fondo Actual</label>
+                </div>
+                
+                <div class="mui-col-md-4 mui-select mui--text-dark-secondary" ng-show="id_tipo_fondo == 2 && id_funcionario != 350">
+                    <div id="func_vb">{{fondo_actual | currency}}</div>
+                    <label>Fondo Actual</label>
+                    <span style="color: #F44336" ng-show="fondo_actual == 0">No hay fondo disponible.</span>
+                </div>
+                <div class="mui-col-md-4 mui-textfield" ng-show="id_tipo_fae=='1' && id_funcionario != 350 && id_tipo_fondo != '2'">
+                    <input type="number" step="any" ng-model="fondo_restante">
+                    <label>Fondo Restante</label>
+                </div>
+                <div class="mui-col-md-4 mui-select mui--text-dark-secondary" ng-show="id_tipo_fondo == 2 && id_funcionario != 350">
+                    <div id="func_vb">{{fondo_actual - monto_autorizado | currency}}</div>
+                    <label>Fondo Restante</label>
+                    <span style="color: #F44336" ng-show="fondo_restante < 0">Fondo insuficiente</span>
+                </div>
+            </div>
+            <div class="mui-row" id="space-top">
+                <div class="mui-col-md-12">
+                    <h5 style="color: rgb(31, 63, 121)"><b><i class="fas fa-check"></i> Visto bueno</b></h5>
+                </div>
+            </div>
+            <div class="mui-row" id="space-top">
+                <div class="mui-col-md-6 mui-select mui-select--float-label" ng-show="id_tipo_fondo != 2">
+                    <angucomplete-alt id="ex2" placeholder="" pause="100" selected-object="customSelected2" local-data="usersFunc" search-fields="nombre,ap_pat,ap_mat,email" title-field="nombre,ap_pat,ap_mat" description-field="puesto" minlength="3" text-searching="Buscando..." text-no-results="No hay resultados." input-class="form-control form-control-small" match-class="highlight"/>
+                    <label>Enviar para Visto Bueno *</label>
+                </div>
+                <div class="mui-col-md-6 mui-select mui--text-dark-secondary" ng-show="id_tipo_fondo == 2">
+                    <div id="func_vb">{{func_vb | uppercase}}</div>
+                    <label>Enviar para Visto Bueno *</label>
+                </div>
+                <div class="mui-col-md-6 mui-select mui-select--float-label" ng-class="{texto_deactivate: id_tipo_fae==2}">
+                    <select type="text" ng-model="id_motivo" ng-required="required">
+                    <option ng-repeat="motivo in catMotivos" value="{{motivo.id_motivo}}">{{motivo.motivo}}</option>
+                    </select>
+                    <label>Motivo *</label>
+                </div>
+            </div>
+            <div class="mui-row" id="space-top">
+                <div class="mui-col-md-12 mui-select mui-select--float-label" ng-class="{texto_deactivate: id_tipo_fae == 2}">
+                    <select type="text" ng-model="id_detalle" ng-required="required">
+                    <option ng-repeat="detalle in cat_detalle | filtroDetalle:id_motivo" value="{{detalle.id_detalle}}">{{detalle.detalle | uppercase}}</option>
+                    </select>
+                    <label>Detalle *</label>
+                </div>
+            </div>
+            <div class="mui-row" id="space-top">
+                <div class="mui-col-md-12">
+                    <h5 style="color: rgb(31, 63, 121)"><b><i class="fas fa-box-open"></i> Documentación</b></h5>
+                </div>
+            </div>
+            <div class="mui-row" id="space-top">
+                <div class="mui-col-md-12 mui--text-center">
+                    <button class="mui-btn mui-btn--small mui-btn--primary mui-btn--flat" id="bnt-upFiles" ngf-select="uploadFiles($files, $invalidFiles)" multiple accept="image/*,application/pdf" ngf-max-height="1000"><i class="fas fa-cloud-upload-alt"></i> Seleccionar Archivos</button>
+                    <div class="bucket-cont">
+                        <table class="mui-table mui-table--bordered">
+                            <tr class="row-table" ng-repeat="f in picFiles">
+                                <td><i class="far fa-file"></i> {{f.name}}</td>
+                            </tr>
+                        </table>
+                        <p class="nofiles-bucket" ng-if="picFiles == false">No hay archivos.
+                        <br>
+                        (El sistema soporta archivos en formato de imagen y/o pdf.)
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row-form row-center">
+                <button type="submit" class="mui-btn mui-btn--primary" data-ng-disabled='!newfacultForm.$valid || fondo_restante<0 || fondo_actual<0'>Enviar <i class="far fa-paper-plane"></i></button>
+            </div>
+        </form>
+    </div>
+</div>

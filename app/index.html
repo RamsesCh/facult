@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html ng-app="App2">
+<head>
+    <meta charset="UTF-8">
+    <meta name="SingIn-google" content="908800123283-of6c10blv80438enc30j3n5oc52is2gj.apps.googleusercontent.com">
+
+    <title>GESTIÓN DE FAE´S</title>
+    <link href="/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="favicon.png" rel="icon">
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="css/ngDialog.min.css">
+    <link rel="stylesheet" href="css/ngDialog-theme-default.min.css">
+    <link rel="stylesheet" href="css/angucomplete-alt.css">
+
+    <!-- load MUI -->
+    <link href="//cdn.muicss.com/mui-0.9.39/css/mui.min.css" rel="stylesheet" type="text/css" />
+    <script src="//cdn.muicss.com/mui-0.9.39/js/mui.min.js"></script>
+
+    <!--FONTS AWESOME-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+</head>
+
+<body ng-controller="MasterController">
+    <div class="all">
+        <div class="encab">
+            <div class="left">
+                <img class="logo" src="images/gnPicono@2x.png">
+                <div class="vertical-split"></div>
+                <div class="title">
+                    GESTIÓN DE FAE´S
+                </div>
+            </div>
+            <div class="right">
+               <!--
+                <div style="display: flex; justify-content: space-between; background-color: ; width: 300px; color: rgb(31, 63, 121);">
+                    <div style="font-size: 20px;"><a href=""><i class="fa fa-home"></i></a></div>
+                    <div style="font-size: 20px;"><a href=""><i class="fa fa-plus-circle"></i></a></div>
+                    <div style="font-size: 20px;"><a href=""><i class="fa fa-chart-line"></i></a></div>
+                    <div style="font-size: 20px;"><a href=""><i class="fa fa-chart-pie"></i></a></div>
+                    <div style="font-size: 20px;"><a href=""><i class="fa fa-briefcase"></i></a></div>
+                    <div style="font-size: 20px;"><a href=""><i class="fa fa-users"></i></a></div>
+                    <div style="font-size: 20px;"><a href=""><i class="fa fa-hand-holding-usd"></i></a></div>
+                    <div style="font-size: 20px;"><a href=""><i class="fa fa-shield-alt"></i></a></div>
+                    <div style="font-size: 20px;"><a href=""><i class="fa faquestion-circle"></i></a></div>
+                </div>-->
+                
+                <img ng-show="userActivo.img" class="img-user" ng-src="{{userActivo.img}}">
+                <div class="user-name">
+                    {{userActivo.name | uppercase}}
+                </div>
+            </div>
+        </div>
+        <div class="nav-bar">
+            <ul class="nav">
+                <li ng-class="{backdeactive: isActive('/')}"><a href="/index.html#/"><i class="fas fa-arrow-left"></i></a></li>
+                <li ng-class="{active: isActive('/')}"><a href="/index.html#/"><i class="fa fa-home nav-item-icons"></i><span class="text-item-nav">Inicio</span></a></li>
+                <li ng-if="userActivo.perfil != 'CONSULTA'" ng-class="{active: isActive('/invite')}"><a ng-href="/index.html#/invite"><i class="fa fa-plus-circle nav-item-icons"></i><span class="text-item-nav">Nuevo</span></a></li>
+                <li ng-if="userActivo.perfil == 'ADMIN' || userActivo.perfil == 'FUNCIONARIO' || userActivo.perfil == 'GOD'" ng-class="{active: isActive('/edocta')}"><a ng-href="/index.html#/edocta"><i class="fas fa-chart-line nav-item-icons"></i><span class="text-item-nav">Estado de Cuenta</span></a></li>
+                <li ng-if="userActivo.perfil == 'ADMIN' || userActivo.perfil == 'FUNCIONARIO' || userActivo.perfil == 'GOD'" ng-class="{active: isActive('/estadist')}"><a ng-href="/index.html#/estadist"><i class="fas fa-chart-pie nav-item-icons"></i><span class="text-item-nav">Estadística</span></a></li>
+                <li ng-if="userActivo.perfil == 'ADMIN' || userActivo.perfil == 'GOD'" ng-class="{active: isActive('/admin_cat')}"><a ng-href="/index.html#/admin_cat"><i class="fa fa-briefcase nav-item-icons"></i><span class="text-item-nav">Admin. Catálogos</span></a></li>
+                <li ng-if="userActivo.perfil == 'ADMIN' || userActivo.perfil == 'GOD'" ng-class="{active: isActive('/admin_usr')}"><a ng-href="/index.html#/admin_usr"><i class="fa fa-users nav-item-icons"></i><span class="text-item-nav">Admin. Usuarios</span></a></li>
+                <li ng-if="userActivo.perfil == 'ADMIN' || userActivo.perfil == 'GOD'" ng-class="{active: isActive('/admin_fond')}"><a ng-href="/index.html#/admin_fond"><i class="fas fa-hand-holding-usd nav-item-icons"></i><span class="text-item-nav">Admin. Fondos</span></a></li>
+                <li ng-class="{active: isActive('/politicas')}"><a ng-href="/index.html#/politicas"><i class="fas fa-shield-alt nav-item-icons"></i><span class="text-item-nav">Políticas</span></a></li>
+                <li ng-class="{active: isActive('/ayuda')}"><a href="" ng-click="clickToOpen2()"><i class="far fa-question-circle"></i></a></li>
+            </ul>
+
+        </div>
+        <div class="content" ng-view>
+            <!-- AQUI SE CARGAN LOS TEMPLATES -->
+
+        </div>
+    </div>
+    <div class="mui-row mui--text-right" ng-if="userActivo.perfil != 'CONSULTA'">
+        <a href="/index.html#/invite">
+            <div class="mui-btn mui-btn--fab" id="btn-add"><i class="fas fa-plus"></i></div>
+        </a>
+    </div>
+    <div class="footer-gral">
+        <div class="aviso-privac">
+            Consulta nuestro aviso de privacidad en www.gnp.com.mx
+        </div>
+        <div class="footer">
+            <img src="images/slogan_white.png" alt="">
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.4.6/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script src="https://rawgithub.com/gsklee/ngStorage/master/ngStorage.js"></script>
+    <script src="js/ngDialog.min.js"></script>
+    <script src="js/angucomplete-alt.js"></script>
+
+
+    
+    <script src="js/helpers.js"></script>
+    <script src="js/angular-pagination.js"></script>
+    <script src="js/ng-file-upload.js"></script>
+    <script src="js/app.js"></script>
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=appStart" async defer></script>
+</body>
+
+</html>

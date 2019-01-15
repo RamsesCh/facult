@@ -1,0 +1,50 @@
+<div class="nuevo-fac-tit">POLÍTICAS</div>
+<div class="panel-estadist">
+    <div class="mui-container-fluid">
+        <div class="mui-col-md-3" ng-if="userActivo.perfil == 'ADMIN' || userActivo.perfil == 'GOD'">
+            <div class="mui-col-md-12">
+                <div class="mui-panel" id="add-report">
+                    <button ng-show="btnaddFile == true" class="add-polit" ngf-select="uploadFiles($files, $invalidFiles)" accept="image/*,application/pdf"><i class="fas fa-cloud-upload-alt"></i><span style="display: block !important; font-size: 14px !important; font-weight: bold;">Subir archivo.</span></button>
+                    <ul ng-show="btnaddFile == false" style="list-style: none">
+                        <li ng-repeat="f in files" style="font:smaller">
+                            <span class="f_name"><i class="far fa-file"></i> {{f.name}}</span>{{f.$errorParam}}
+                            <span class="progress" ng-show="f.progress >= 0">
+                                <div style="width:{{f.progress}}%" ng-bind="f.progress + '%'"></div>
+                            </span>
+                        </li>
+                        <li ng-repeat="f in errFiles" style="font:smaller">
+                            {{f.name}} {{f.$error}} {{f.$errorParam}}
+                        </li>
+                    </ul>
+                    <span ng-show="result2">Upload Successful</span>
+                    {{errorMsg}}
+                </div>
+            </div>
+        </div>
+        <div class="mui-col-md-9">
+            <div class="mui-col-md-12" ng-repeat="politica in listPoliticas">
+                <div class="mui-panel" id="item-report">
+                    <div class="cejillo"></div>
+                    <div class="mui-container row-polit">
+                      <div class="nom-polit">
+                         <a ng-href="rest/viewFile/{{politica.keyname}}" target="_blank">
+                             <i class="far fa-file"></i> {{politica.nombre}}
+                         </a>
+                      </div>
+                      <div class="opt-polit">
+                          <span style="color: rgba(0,0,0,0.54); font-style: italic;">{{politica.fecha_alta}}</span>
+                          <span style="margin-left: 15px;"><i ng-if="userActivo.perfil == 'ADMIN' || userActivo.perfil == 'GOD'" class="fas fa-trash-alt" ng-click="removePolit($index)" style="cursor: pointer" title="Eliminar"></i></span>
+                      </div>
+                       <!--
+                        <p style="margin-top: 10px;"><b><i class="far fa-file"></i> {{politica.nombre | uppercase}}</b></p>
+                        {{politica.descripcion}}
+                        <div class="buttons-item-report">
+                            <i ng-if="userActivo.perfil == 'ADMIN' || userActivo.perfil == 'GOD'" class="fas fa-trash-alt" ng-click="removePolit($index)" style="cursor: pointer" title="Eliminar"></i>
+                            <button class="mui-btn mui-btn--small mui-btn--primary" ng-click="clickToOpen(politica)">ver <i class="fas fa-external-link-alt"></i></button>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

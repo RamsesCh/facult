@@ -1,0 +1,74 @@
+<div class="panel" id="panel-users">
+    <div class="mui-container">
+        <div class="mui-row">
+            <div class="mui-col-md-12">
+                <i class="fa fa-users"></i><span class="titul-sec-name">EDITAR USUARIO</span>
+            </div>
+        </div>
+        <div class="mui-row">
+            <div class="mui-col-md-12">
+                <form class="mui-form" ng-submit="submitUpdate()">
+                    <div class="mui-row">
+                       <div class="mui-col-md-3 mui-textfield">
+                            <input type="text" ng-model="user.email">
+                            <label>E-mail</label>
+                        </div>
+                        <div class="mui-col-md-3 mui-textfield">
+                            <input type="text" ng-model="user.nombre" class="text-upp">
+                            <label>Nombre</label>
+                        </div>
+                        <div class="mui-col-md-3 mui-textfield">
+                            <input type="text" ng-model="user.ap_pat" class="text-upp">
+                            <label>Apellido Paterno</label>
+                        </div>
+                        <div class="mui-col-md-3 mui-textfield">
+                            <input type="text" ng-model="user.ap_mat" class="text-upp">
+                            <label>Apellido Materno</label>
+                        </div>
+                    </div>
+                    <div class="mui-row">
+                        <div class="mui-col-md-3 mui-select">
+                            <select ng-model="user.id_direccion">
+                                <option ng-repeat="direccion in catDirecciones" value="{{direccion.id_direccion}}">{{direccion.direccion}}</option>
+                            </select>
+                            <label>Dirección</label>
+                        </div>
+                        <div class="mui-col-md-3 mui-select">
+                            <select ng-model="user.id_puesto">
+                                <option ng-repeat="puesto in catPuestos" value="{{puesto.id_puesto}}">{{puesto.puesto}}</option>
+                            </select>
+                            <label>Puesto</label>
+                        </div>
+                        <div class="mui-col-md-3 mui-select">
+                            <select ng-model="user.id_aspecto">
+                                <option ng-repeat="aspecto in catAspectos" value="{{aspecto.id_aspecto}}">{{aspecto.aspecto}}</option>
+                            </select>
+                            <label>Aspecto</label>
+                        </div>
+                        <div class="mui-col-md-3 mui-select">
+                            <select ng-model="user.id_perfil" ng-init="id_perfil = '1'">
+                                <option ng-repeat="perfil in catPerfiles" value="{{perfil.id_perfil}}">{{perfil.perfil}}</option>
+                            </select>
+                            <label>Perfil</label>
+                        </div>
+                        <div class="mui-col-md-3 mui-select">
+                            <select type="text" ng-model="user.activo">
+                                <option value="1">ACTIVO</option>
+                                <option value="0">BAJA</option>
+                            </select>
+                            <label>Estatus</label>
+                        </div>
+                    </div>
+                    <div class="mui-row">
+                        <div class="mui-col-md-12">
+                            <div class="mui--text-center">
+                                <button type="submit" class="mui-btn mui-btn--small mui-btn--primary" title="Guardar">Guardar <i class="far fa-check-circle"></i></button>
+                                <a href="/index.html#/admin_usr" class="mui-btn mui-btn--small mui-btn--danger" title="Cancelar">Cancelar <i class="fas fa-times-circle"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

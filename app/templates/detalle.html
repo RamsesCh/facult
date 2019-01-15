@@ -1,0 +1,342 @@
+<div class="nuevo-fac-tit">DETALLE DE LA SOLICITUD</div>
+<div class="panel">
+    <div class="mui-container-fluid">
+        <div class="mui-row">
+            <div class="mui-col-md-8">
+                <div class="mui-col-md-12">
+                    <h4 class="tit-det"><i class="fa fa-user"></i> {{facult.solicitante | uppercase}} <span class="label-min">solicitante</span> </h4>
+                </div>
+                <div class="mui-col-md-12">
+                    <h4 class="tit-det"><i class="fa fa-home"></i> {{facult.ramo}} {{facult.linea_nego}} <span class="label-min">Ramo</span></h4>
+                </div>
+                <div class="mui-col-md-12">
+                    <h4 class="tit-det"><i class="fa fa-dollar-sign"></i> {{facult.monto_autorizado | number:2}} <span class="label-min">Monto Solicitado</span></h4>
+                </div>
+                <div class="mui-col-md-12">
+                    <h4 class="tit-det"><i class="far fa-calendar"></i> {{facult.fecha_registro | date:'dd MMM yyyy h:mm a'}} <span class="label-min">Fecha de alta</span></h4>
+                </div>
+                <div class="mui-col-md-12">
+                    <h4 class="tit-det"><i class="fas fa-user-tie"></i> {{facult.func_vb}} <span class="label-min">Funcionario que autoriza</span></h4>
+                </div>
+                <div class="mui-col-md-12">
+                    <h4 class="tit-det"><i class="far fa-user"></i> {{facult.nom_benef | uppercase}} <span ng-if="facult.appat_benef != 'N/A'">{{facult.appat_benef | uppercase}}</span> <span ng-if="facult.apmat_benef != 'N/A'">{{facult.apmat_benef | uppercase}}</span> <span class="label-min">beneficiario</span></h4>
+                </div>
+                <div class="mui-col-md-12">
+                    <h4 class="tit-det"><i class="fas fa-edit"></i> Causa</h4>
+                    <p>{{facult.causa}}</p>
+                </div>
+                <div class="mui-col-md-12">
+                    <div ng-class="{badge1: facult.estatus == 'En proceso', badge2: facult.estatus == 'Autorizado por funcionario', badge3: facult.estatus == 'Rechazado por funcionario', badge4: facult.estatus == 'Terminado', badge5: facult.estatus == 'Rechazado por facultamiento', badge6: facult.estatus == 'Folio cancelado'}">{{facult.estatus}}</div>
+                </div>
+                <div class="mui-col-md-12 texto_deactivate" ng-class="{texto_activate: facult.estatus == 'Autorizado por funcionario'}">
+                    <h4 class="tit-det"><i class="far fa-calendar"></i> {{facult.fecha_autorizacion | date:'dd MMM yyyy h:mm a'}} <span class="label-min">Fecha de Autorización</span></h4>
+                </div>
+                <div class="mui-col-md-12 texto_deactivate" ng-class="{texto_activate: facult.estatus == 'Rechazado por funcionario'}">
+                    <h4 class="tit-det"><i class="far fa-calendar"></i> {{facult.fecha_rechazo | date:'dd MMM yyyy h:mm a'}} <span class="label-min">Fecha de Rechazo</span></h4>
+                </div>
+                <div class="mui-col-md-12 texto_deactivate" ng-class="{texto_activate: facult.estatus == 'Terminado' || facult.estatus == 'Folio cancelado'}">
+                    <h4 class="tit-det"><i class="far fa-calendar"></i> {{facult.fecha_termino | date:'dd MMM yyyy h:mm a'}} <span class="label-min">Fecha de Término</span></h4>
+                </div>
+                <div class="mui-col-md-12 texto_deactivate" ng-class="{texto_activate: facult.estatus == 'Rechazado por facultamiento'}">
+                    <h4 class="tit-det"><i class="far fa-calendar"></i> {{facult.fecha_rechazo_facult | date:'dd MMM yyyy h:mm a'}} <span class="label-min">Fecha de Rechazo</span></h4>
+                </div>
+                <div class="mui-col-md-12 texto_deactivate" ng-class="{texto_activate: facult.estatus == 'Folio cancelado'}">
+                    <h4 class="tit-det"><i class="far fa-calendar"></i> {{facult.fecha_cancel_folio | date:'dd MMM yyyy h:mm a'}} <span class="label-min">Fecha de Cancelación del folio</span></h4>
+                </div>
+            </div>
+            <div class="mui-col-md-4">
+                <div class="mui-col-md-12" ng-if="facult.estatus=='Terminado'">
+                    <h4 class="tit-det-folio"><i class="fas fa-check-circle"></i> {{facult.folio_termino}} <span class="label-min">Folio de Término</span></h4>
+                </div>
+                <div class="mui-col-md-12" ng-if="facult.estatus=='Folio cancelado'">
+                    <h4 class="tit-det-folio-cancel"><i class="fas fa-check-circle"></i> {{facult.folio_termino}} <span class="label-min">Folio de Término</span></h4>
+                </div>
+                <div class="mui-col-md-12">
+                    <h4 class="tit-det"><i class="fas fa-box-open"></i> DOCUMENTACIÓN <span class="label-min">{{totalfiles}} Archivos</span></h4>
+                    <div class="bucket-cont">
+                        <table class="mui-table mui-table--bordered">
+                            <tr class="row-table" ng-repeat="file in files">
+                                <td>
+                                    <a ng-href="rest/viewFile/{{file.key_name}}" target="_blank"><i class="far fa-file"></i> {{file.nombre}}</a>
+                                </td>
+                            </tr>
+                        </table>
+                        <p class="nofiles-bucket" ng-if="files == false">No hay archivos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mui-divider"></div>
+        <div class="mui-row">
+            <div class="mui-col-md-12">
+                <h4 class="tit-det"><i class="fas fa-pencil-alt"></i> Datos Generales </h4>
+            </div>
+        </div>
+        <div class="mui-row">
+            <div class="mui-col-md-3">
+                <div class="mui-textfield" id="text-field-custom">
+                    <h4>{{facult.tipo_fae}}</h4>
+                    <label>Tipo de F.A.E.</label>
+                </div>
+            </div>
+            <div class="mui-col-md-3">
+                <div class="mui-textfield" id="text-field-custom">
+                    <h4>{{facult.siniestro}}</h4>
+                    <label>Siniestro</label>
+                </div>
+            </div>
+            <div class="mui-col-md-3">
+                <div class="mui-textfield" id="text-field-custom">
+                    <h4>{{facult.poliza}}</h4>
+                    <label>Póliza</label>
+                </div>
+            </div>
+            <div class="mui-col-md-3">
+                <div class="mui-textfield" id="text-field-custom">
+                    <h4>{{facult.reclamacion}}</h4>
+                    <label>Reclamación</label>
+                </div>
+            </div>
+        </div>
+        <div class="mui-divider"></div>
+        <div class="mui-row">
+            <div class="mui-col-md-12">
+                <h4 class="tit-det color-tit"><i class="fas fa-briefcase"></i> Datos del Ramo </h4>
+            </div>
+        </div>
+        <div class="mui-row">
+            <div class="mui-col-md-3">
+                <div class="mui-textfield" id="text-field-custom">
+                    <h4>{{facult.ramo | uppercase}}</h4>
+                    <label>Ramo</label>
+                </div>
+            </div>
+            <div class="mui-col-md-3">
+                <div class="mui-textfield" id="text-field-custom">
+                    <h4>{{facult.linea_nego | uppercase}}</h4>
+                    <label>Linea de Negocio</label>
+                </div>
+            </div>
+            <div class="mui-col-md-3">
+                <div class="mui-textfield" id="text-field-custom">
+                    <h4>{{facult.folio_nvo_barra}}</h4>
+                    <label>Folio Barra de Servicio</label>
+                </div>
+            </div>
+            <div class="mui-col-md-3">
+                <div class="mui-textfield" id="text-field-custom">
+                    <h4>{{facult.tipo_pago | uppercase}}</h4>
+                    <label>Tipo de Pago</label>
+                </div>
+            </div>
+        </div>
+        <div class="mui-row">
+            <div class="mui-col-md-4">
+                <div class="mui-textfield" id="text-field-custom">
+                    <h4>{{facult.concepto | uppercase}}</h4>
+                    <label>Concepto</label>
+                </div>
+            </div>
+            <div class="mui-col-md-4">
+                <div class="mui-textfield" id="text-field-custom">
+                    <h4>{{facult.motivo | uppercase}}</h4>
+                    <label>Motivo</label>
+                </div>
+            </div>
+            <div class="mui-col-md-4">
+                <div class="mui-textfield" id="text-field-custom">
+                    <h4>{{facult.detalle | uppercase}}</h4>
+                    <label>Detalle</label>
+                </div>
+            </div>
+        </div>
+        <div class="mui-row">
+            <div class="mui-col-md-12 mui-textfield" id="text-field-custom">
+                <h4>{{facult.causa}}</h4>
+                <label>Causa</label>
+            </div>
+        </div>
+        <div class="mui-divider"></div>
+        <div class="mui-row">
+            <div class="mui-col-md-6">
+                <h4 class="tit-det"><i class="fas fa-dollar-sign"></i> Fondo Afectado </h4>
+                <div class="mui-col-md-4">
+                    <div class="mui-textfield" id="textfield-custom">
+                        <h4>{{facult.tipo_fondo}}</h4>
+                        <label>Tipo de Fondo</label>
+                    </div>
+                </div>
+                <div class="mui-col-md-8" ng-if="id_tipo_fondo == 1">
+                    <div class="mui-textfield" id="textfield-custom">
+                        <h4>{{facult.funcionario}}</h4>
+                        <label>Funcionario</label>
+                    </div>
+                </div>
+            </div>
+            <div class="mui-col-md-6">
+                <h4 class="tit-det"><i class="fas fa-dollar-sign"></i> Monto Solicitado </h4>
+                <div class="mui-col-md-4">
+                    <div class="mui-textfield" id="textfield-custom">
+                        <h4>{{facult.monto_autorizado | currency}}</h4>
+                        <label>Monto</label>
+                    </div>
+                </div>
+                <div class="mui-col-md-4" ng-if="facult.tipo_fae == 'REGULAR' && facult.id_funcionario != '200'">
+                    <div class="mui-textfield" id="textfield-custom">
+                        <h4>{{facult.fondo_actual | currency}}</h4>
+                        <label>Fondo Actual</label>
+                    </div>
+                </div>
+                <div class="mui-col-md-4" ng-if="facult.tipo_fae == 'REGULAR' && facult.id_funcionario != '200'">
+                    <div class="mui-textfield" id="textfield-custom">
+                        <h4>{{facult.fondo_restante | currency}}</h4>
+                        <label>Fondo Restante</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel" ng-if="facult.estatus != 'En proceso'">
+    <div class="mui-container-fluid">
+        <div class="mui-row">
+            <div class="mui-col-md-6">
+                <h4 class="tit-det"><i class="fas fa-user-tie"></i> Comentarios del Funcionario </h4>
+            </div>
+            <div class="mui-col-md-6 mui--text-right">
+                <h4 class="tit-det">{{facult.fecha_autorizacion | date:'dd MMM yyyy h:mm a'}}</h4>
+                <h4 class="tit-det">{{facult.fecha_rechazo | date:'dd MMM yyyy h:mm a'}}</h4>
+            </div>
+        </div>
+        <div class="mui-row">
+            <div class="mui-col-md-12 mui-textfield" id="text-field-custom">
+                <h4 ng-show="facult.func_observ != 'n/a'">{{facult.func_observ}}</h4>
+                <label ng-show="facult.func_observ != 'n/a'">Observaciones</label>
+                <p ng-show="facult.func_observ == 'n/a'" class="nofiles-bucket">No hay observaciones.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel" ng-if="facult.estatus == 'Terminado' || facult.estatus == 'Rechazado por facultamiento' || facult.estatus == 'Folio cancelado'">
+    <div class="mui-container-fluid">
+        <div class="mui-row">
+            <div class="mui-col-md-6">
+                <h4 class="tit-det"><i class="fas fa-user-check"></i> Comentarios de Término </h4>
+            </div>
+            <div class="mui-col-md-6 mui--text-right">
+                <h4 class="tit-det">{{facult.fecha_termino | date:'dd MMM yyyy h:mm a'}}</h4>
+                <h4 class="tit-det">{{facult.fecha_rechazo_facult | date:'dd MMM yyyy h:mm a'}}</h4>
+            </div>
+        </div>
+        <div class="mui-row">
+            <div class="mui-col-md-12 mui-textfield" id="text-field-custom">
+                <h4 ng-show="facult.facult_observ != 'n/a'">{{facult.facult_observ}}</h4>
+                <label ng-show="facult.facult_observ != 'n/a'">Observaciones</label>
+                <p ng-show="facult.facult_observ == 'n/a'" class="nofiles-bucket">No hay observaciones.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel" ng-if="facult.estatus == 'Folio cancelado'">
+    <div class="mui-container-fluid">
+        <div class="mui-row">
+            <div class="mui-col-md-6">
+                <h4 class="tit-det"><i class="fas fa-ban"></i> Comentarios de Cancelación </h4>
+            </div>
+            <div class="mui-col-md-6 mui--text-right">
+                <h4 class="tit-det">{{facult.fecha_cancel_folio | date:'dd MMM yyyy h:mm a'}}</h4>
+            </div>
+        </div>
+        <div class="mui-row">
+            <div class="mui-col-md-12 mui-textfield" id="text-field-custom">
+                <h4 ng-show="facult.observ_cancel_folio != 'n/a'">{{facult.observ_cancel_folio}}</h4>
+                <label ng-show="facult.observ_cancel_folio != 'n/a'">Observaciones</label>
+                <p ng-show="facult.observ_cancel_folio == 'n/a'" class="nofiles-bucket">No hay observaciones.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel" ng-if="facult.estatus == 'En proceso' && (userActivo.perfil == 'FUNCIONARIO' || userActivo.perfil == 'GOD')">
+    <form name="funcForm" action="">
+        <div class="mui-container-fluid">
+            <div class="mui-row">
+                <div class="mui-col-md-12">
+                    <h4 class="tit-det"><i class="fas fa-pencil-alt"></i> Comentarios de Aprobación por el Funcionario </h4>
+                </div>
+            </div>
+            <div class="mui-row">
+                <div class="mui-col-md-3 mui-select mui-select--float-label">
+                    <select type="text" ng-model="id_estatus" name="statusFunc" required>
+                    <option value="2">Autorizar</option>
+                    <option value="3">Rechazar</option>
+                    </select>
+                    <label>Estatus *</label>
+                    <span style="color: #F44336;" ng-show="funcForm.statusFunc.$touched && funcForm.statusFunc.$invalid">Campo obligatorio.</span>
+                </div>
+                <div class="mui-col-md-3">
+                    <button data-ng-disabled='!funcForm.$valid' class="mui-btn mui-btn--primary" id="btn-aut" ng-click="submitAprobar(id_estatus,func_observ)">Enviar <span><i class="far fa-paper-plane"></i></span></button>
+                </div>
+            </div>
+            <div class="mui-row">
+                <div class="mui-col-md-12 mui-textfield mui-textfield--float-label">
+                    <textarea type="text" ng-model="func_observ" required name="observFunc" maxlength="500"></textarea>
+                    <label>Observaciones *</label>
+                    <span style="color: rgba(0,0,0,.50);">Caracteres restantes: {{500 - func_observ.length}} / 500</span>
+                    <br>
+                    <span style="color: #F44336;" ng-show="funcForm.observFunc.$touched && funcForm.observFunc.$invalid">Campo obligatorio.</span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="panel" ng-if="facult.estatus == 'Autorizado por funcionario' && (userActivo.perfil == 'ADMIN' || userActivo.perfil == 'GOD')">
+    <form name="facultForm" action="">
+        <div class="mui-container-fluid">
+            <div class="mui-row">
+                <div class="mui-col-md-12">
+                    <h4 class="tit-det"><i class="fas fa-pencil-alt"></i> Comentarios de Término </h4>
+                </div>
+            </div>
+            <div class="mui-row">
+                <div class="mui-col-md-3 mui-select mui-select--float-label">
+                    <select type="text" ng-model="id_estatus" name="statusFacult" required>
+                    <option value="4">Terminar</option>
+                    <option value="5">Rechazar</option>
+                    </select>
+                    <label>Estatus</label>
+                    <span style="color: #F44336;" ng-show="facultForm.statusFacult.$touched && facultForm.statusFunc.$invalid">Campo obligatorio.</span>
+                </div>
+                <div class="mui-col-md-3">
+                    <button data-ng-disabled='!facultForm.$valid' class="mui-btn mui-btn--primary" id="btn-termin" ng-click="submitTerminar(id_estatus,facult_observ)">Terminar <span><i class="fas fa-flag-checkered"></i></span></button>
+                </div>
+            </div>
+            <div class="mui-row">
+                <div class="mui-col-md-12 mui-textfield mui-textfield--float-label">
+                    <textarea type="text" ng-model="facult_observ" name="observFacult" maxlength="1000" rows="8" required></textarea>
+                    <label>Observaciones</label>
+                    <span style="color: rgba(0,0,0,.50);">Caracteres restantes: {{1000 - facult_observ.length}} / 1000</span>
+                    <br>
+                    <span style="color: #F44336;" ng-show="facultForm.observFacult.$touched && facultForm.observFacult.$invalid">Campo obligatorio.</span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="panel" ng-if="facult.estatus == 'Terminado' && (userActivo.perfil == 'ADMIN' || userActivo.perfil == 'GOD')">
+    <div class="mui-container-fluid">
+        <div class="mui-row">
+            <div class="mui-col-md-12">
+                <h4 class="tit-det" style="color: #ff6b6b !important;"><i class="fas fa-ban"></i> Cancelar Folio FAE</h4>
+            </div>
+        </div>
+        <div class="mui-row">
+            <div class="mui-col-md-12 mui-textfield mui-textfield--float-label">
+                <textarea type="text" ng-model="observ_cancel_folio"></textarea>
+                <label>Observaciones</label>
+            </div>
+            <div class="mui-col-md-12">
+                <button class="mui-btn mui-btn--primary" id="btn-termin" ng-click="cancelFae(facult.id_facultamiento ,observ_cancel_folio, facult.email_solicitante, facult.email_func_vb, facult.folio_termino, facult.ramo, facult.linea_nego, facult.monto_autorizado, facult.nom_benef, facult.appat_benef, facult.apmat_benef)">Enviar <span><i class="far fa-paper-plane"></i></span></button>
+            </div>
+        </div>
+    </div>
+</div>

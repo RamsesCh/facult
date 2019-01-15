@@ -1,0 +1,122 @@
+<div class="nuevo-fac-tit">
+    <div class="nom-seccion">TODAS LAS SOLICITUDES</div>
+    <div class="group-filters">
+        <div class="mui-select dropfilter">
+            <select ng-model="filterbyEstatus">
+                <option value="">Todos los estatus</option>
+                <option value="En proceso">En proceso</option>
+                <option value="Autorizado por funcionario">Autorizado por funcionario</option>
+                <option value="Rechazado por funcionario">Rechazado por funcionario</option>
+                <option value="Terminado">Terminado</option>
+                <option value="Rechazado por facultamiento">Rechazado por facultamiento</option>
+                <option value="Folio cancelado">Folio cancelado</option>
+            </select>
+        </div>
+        <div class="mui-select dropfilter">
+            <select ng-model="filterbyRamo">
+                <option value="">Todos los ramos</option>
+                <option value="GMM">GMM</option>
+                <option value="Autos">Autos</option>
+            </select>
+        </div>
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input class="search-input" type="search" placeholder="Buscar" ng-model="facultSearch">
+        </div>
+        <div class="mui-row mui--text-center" style="margin: 0px !important;">
+            <ng-pagination-control pagination-id="facultList" color="white" height="35px"></ng-pagination-control>
+        </div>
+    </div>
+</div>
+<div class="panel">
+    <table class="mui-table mui-table--bordered" id="table-home">
+        <thead>
+            <tr>
+                <th>
+                    <a href="" ng-click="sortType = 'fecha_registro'; sortReverse = !sortReverse">
+                        Fecha de Alta
+                        <span ng-show="sortType == 'fecha_registro' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'fecha_registro' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </th>
+                <th>
+                    <a href="" ng-click="sortType = 'ramo'; sortReverse = !sortReverse">
+                        Ramo
+                        <span ng-show="sortType == 'ramo' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'ramo' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </th>
+                <th>
+                    <a href="" ng-click="sortType = 'solicitante'; sortReverse = !sortReverse">
+                        Solicitante
+                        <span ng-show="sortType == 'solicitante' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'solicitante' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </th>
+                <th>
+                    <a href="" ng-click="sortType = 'siniestro'; sortReverse = !sortReverse">
+                        Siniestro
+                        <span ng-show="sortType == 'siniestro' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'siniestro' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </th>
+                <th>
+                    <a href="" ng-click="sortType = 'poliza'; sortReverse = !sortReverse">
+                        Póliza
+                        <span ng-show="sortType == 'poliza' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'poliza' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </th>
+                <th>
+                    <a href="" ng-click="sortType = 'monto_autorizado'; sortReverse = !sortReverse">
+                        Monto
+                        <span ng-show="sortType == 'monto_autorizado' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'monto_autorizado' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </th>
+                <th>
+                    <a href="" ng-click="sortType = 'estatus'; sortReverse = !sortReverse">
+                        Estatus
+                        <span ng-show="sortType == 'estatus' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'estatus' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </th>
+                <th>
+                    <a href="" ng-click="sortType = 'folio_termino'; sortReverse = !sortReverse">
+                        Folio de término
+                        <span ng-show="sortType == 'folio_termino' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'folio_termino' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="row-table" ng-repeat="facult in facultList | filter:filterbyEstatus | filter:filterbyRamo | filter:facultSearch | orderBy:sortType:sortReverse">
+                <td>{{facult.fecha_registro | date:'dd MMM yyyy h:mm a'}}</td>
+                <td>{{facult.ramo + ' ' + facult.linea_nego}}</td>
+                <td>{{facult.solicitante | uppercase}}</td>
+                <td>{{facult.siniestro}}</td>
+                <td>{{facult.poliza}}</td>
+                <td>{{facult.monto_autorizado | currency}}</td>
+                <td class="td-status">
+                    <div ng-class="{badge1: facult.estatus == 'En proceso', badge2: facult.estatus == 'Autorizado por funcionario', badge3: facult.estatus == 'Rechazado por funcionario', badge4: facult.estatus == 'Terminado', badge5: facult.estatus == 'Rechazado por facultamiento', badge6: facult.estatus == 'Folio cancelado'}">{{facult.estatus}}</div>
+                </td>
+                <td>{{facult.folio_termino}}</td>
+                <td><a ng-href="#/view/{{facult.id_facultamiento}}" title="VER"><i class="fa fa-arrow-circle-right"></i></a></td>
+            </tr>
+        </tbody>
+    </table>
+    <div ng-hide="1 > 0" class="mui-row mui--text-center" style="margin: 0px !important;">
+            <ng-pagination-control pagination-id="facultList" color="white" height="35px"></ng-pagination-control>
+    </div>
+    <div class="mui-row" ng-show="facultList == false">
+        <a href="#/invite">
+            <div class="mui-col-md-2 mui-col-md-offset-5 mui--text-center">
+                <h1><i class="fas fa-folder-plus"></i></h1>
+                <h5>No hay solicitudes, haz clic aquí para registrar una.</h5>
+            </div>
+        </a>
+    </div>
+</div>
+

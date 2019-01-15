@@ -1,0 +1,107 @@
+<div class="nuevo-fac-tit">ADMINISTRAR CATÁLOGOS</div>
+<div class="mui-container-fluid">
+    <div class="mui-row">
+        <div class="mui-col-md-6">
+            <div class="mui-panel">
+                <p class="mui--text-center"><b>TIPOS DE PAGO</b></p>
+                <table class="mui-table mui-table--bordered" id="table-adminCat">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Tipo de Pago</th>
+                            <th>Tipo F.A.E.</th>
+                            <th>Ramo</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="row-table" ng-pagination="tipoPago in tipoPagoList | orderBy:'id_tipo_pago'" ng-pagination-size="5">
+                            <td>
+                                <i ng-if="tipoPago.activo == '1'" class="fas fa-flag UserActivo"></i>
+                                <i ng-if="tipoPago.activo == '0'" class="fas fa-flag UserBaja"></i>
+                            </td>
+                            <td>{{tipoPago.tipo_pago}}</td>
+                            <td>{{tipoPago.tipo_fae}}</td>
+                            <td>{{tipoPago.ramo}}</td>
+                            <td><a href="" ng-click="update(user)" title="EDITAR"><i class="fas fa-edit"></i></a></td>
+                        </tr>
+                    </tbody>
+                    <tr>
+                        <td colspan="4">
+                            <div>
+                                <a href="" ng-click="activarAltaUser()" id="btn_custom">Agregar nuevo <i class="fas fa-plus-circle"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="mui-row mui--text-center">
+                    <ng-pagination-control pagination-id="tipoPagoList" color="white" height="35px"></ng-pagination-control>
+                </div>
+            </div>
+        </div>
+        <div class="mui-col-md-6">
+            <div class="mui-panel">
+                <p class="mui--text-center"><b>CONCEPTO</b></p>
+                <table class="mui-table mui-table--bordered" id="table-adminCat">
+                    <thead>
+                        <tr>
+                            <th>Concepto</th>
+                            <th>id_tipo_pago</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="row-table" ng-pagination="concepto in conceptoList" ng-pagination-size="5">
+                            <td>{{concepto.concepto}}</td>
+                            <td>{{concepto.id_tipo_pago}}</td>
+                            <td><a href="" ng-click="update(user)" title="EDITAR"><i class="fas fa-edit"></i></a></td>
+                        </tr>
+                    </tbody>
+                    <tr>
+                        <td colspan="3">
+                            <div>
+                                <a href="" ng-click="activarAltaUser()" id="btn_custom">Agregar nuevo <i class="fas fa-plus-circle"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="mui-row mui--text-center">
+                    <ng-pagination-control pagination-id="conceptoList" color="white" height="35px"></ng-pagination-control>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mui-row">
+        <div class="mui-col-md-12">
+            <div class="mui-panel">
+                <p class="mui--text-center"><b>DETALLE</b></p>
+                <table class="mui-table mui-table--bordered" id="table-adminCat">
+                    <thead>
+                        <tr>
+                            <th>Detalle</th>
+                            <th>ID Motivo</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="row-table" ng-pagination="detalle in detalleList" ng-pagination-size="5">
+                            <td>{{detalle.detalle | uppercase}}</td>
+                            <td>{{detalle.id_motivo}}</td>
+                            <td><a href="" ng-click="update(user)" title="EDITAR"><i class="fas fa-edit"></i></a></td>
+                        </tr>
+                    </tbody>
+                    <tr>
+                        <td colspan="3">
+                            <div>
+                                <a href="" ng-click="activarAltaUser()" id="btn_custom">Agregar nuevo <i class="fas fa-plus-circle"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="mui-row mui--text-center">
+                    <ng-pagination-control pagination-id="detalleList" color="white" height="35px"></ng-pagination-control>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

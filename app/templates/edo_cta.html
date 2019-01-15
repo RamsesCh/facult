@@ -1,0 +1,78 @@
+<div class="nuevo-fac-tit">CONSULTAR ESTADO DE CUENTA</div>
+<div class="panel">
+    <div class="mui-container-fluid">
+        <div class="mui-row">
+            <div class="mui-container-fluid">
+                <div class="mui-form--inline">
+                    <div class="mui-col-md-4 mui-select mui-select--float-label">
+                        <select type="text" ng-model="funcSelect">
+                        <option ng-repeat="func in catFuncEdocta | orderBy:'nombre'" value="{{func.id_usuario}}">{{func.nombre + ' ' + func.ap_pat + ' ' + func.ap_mat | uppercase}}</option>
+                    </select>
+                        <label>Funcionario</label>
+                    </div>
+                    <div class="mui-col-md-2 mui-select mui-select--float-label">
+                        <select type="text" ng-model="mesSelect">
+                            <option value="01">ENERO</option>
+                            <option value="02">FEBRERO</option>
+                            <option value="03">MARZO</option>
+                            <option value="04">ABRIL</option>
+                            <option value="05">MAYO</option>
+                            <option value="06">JUNIO</option>
+                            <option value="07">JULIO</option>
+                            <option value="08">AGOSTO</option>
+                            <option value="09">SEPTIEMBRE</option>
+                            <option value="10">OCTUBRE</option>
+                            <option value="11">NOVIEMBRE</option>
+                            <option value="12">DICIEMBRE</option>
+                    </select>
+                        <label>Mes</label>
+                    </div>
+                    <div class="mui-col-md-2 mui-textfield mui-textfield--float-label">
+                        <button ng-click="consultEdocta(funcSelect,mesSelect)" class="mui-btn mui-btn--small mui-btn--primary" title="Guardar">Consultar <i class="far fa-check-circle"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mui-row" ng-if="banEdocta == 1">
+            <table class="mui-table mui-table--bordered" id="table-home">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Folio</th>
+                        <th class="mui--text-right">GMM LP</th>
+                        <th class="mui--text-right">GMM LC</th>
+                        <th class="mui--text-right">AUTOS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in edocta | orderBy: 'fecha_term'">
+                        <td>{{item.fecha_alta}}</td>
+                        <td>{{item.folio_termino}}</td>
+                        <td class="mui--text-right"><div ng-show="item.gmmlp != 0">{{item.gmmlp | currency}}</div></td>
+                        <td class="mui--text-right"><div ng-show="item.gmmlc != 0">{{item.gmmlc | currency}}</div></td>
+                        <td class="mui--text-right"><div ng-show="item.autos != 0">{{item.autos | currency}}</div></td>
+                    </tr>
+                    <tr>
+                        <th colspan="2" class="mui--text-right table_edocta" id="th_edocta">Total de autorizaciones:</th>
+                        <th class="table_edocta mui--text-right" id="th_edocta">{{getTotal() | currency}}</th>
+                        <th class="table_edocta mui--text-right" id="th_edocta">{{getTotal2() | currency}}</th>
+                        <th class="table_edocta mui--text-right" id="th_edocta">{{getTotal3() | currency}}</th>
+                    </tr>
+                    <tr ng-repeat="monto in edoctaMontos">
+                        <th colspan="2" class="mui--text-right table_edocta" id="th_edocta">Fondo Mensual:</th>
+                        <th class="table_edocta mui--text-right" id="th_edocta">{{monto.gmmlp | currency}}</th>
+                        <th class="table_edocta mui--text-right" id="th_edocta">{{monto.gmmlc | currency}}</th>
+                        <th class="table_edocta mui--text-right" id="th_edocta">{{monto.autos | currency}}</th>
+                    </tr>
+                    <tr ng-repeat="monto in edoctaMontos">
+                        <th colspan="2" class="mui--text-right table_edocta" id="th_edocta">Fondo Disponible:</th>
+                        <th class="table_edocta mui--text-right" id="th_edocta" style="font-size: 18px !important; color: #2196F3 !important;">{{monto.gmmlp - getTotal() | currency}}</th>
+                        <th class="table_edocta mui--text-right" id="th_edocta" style="font-size: 18px !important; color: #2196F3 !important;">{{monto.gmmlc - getTotal2() | currency}}</th>
+                        <th class="table_edocta mui--text-right" id="th_edocta" style="font-size: 18px !important; color: #2196F3 !important;">{{monto.autos - getTotal3() | currency}}</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

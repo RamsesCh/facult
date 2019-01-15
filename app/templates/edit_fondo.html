@@ -1,0 +1,45 @@
+<div class="panel" id="panel-users">
+    <div class="mui-container">
+        <div class="mui-row">
+            <div class="mui-col-md-12">
+                <i class="fas fa-hand-holding-usd"></i><span class="titul-sec-name">EDITAR FONDO</span>
+            </div>
+        </div>
+        <div class="mui-row">
+            <div class="mui-col-md-12">
+                <form class="mui-form" ng-submit="submitUpdateFondo()">
+                    <div class="mui-row">
+                        <div class="mui-col-md-4 mui-textfield" >
+                            <input type="text" ng-model="fondo.funcionario" readonly>
+                            <label>Funcionario</label>
+                        </div>
+                        <div class="mui-col-md-2 mui-textfield" id="textfield-custom">
+                            <input type="text" ng-model="fondo.ramo" readonly>
+                            <label>Ramo</label>
+                        </div>
+                        <div class="mui-col-md-2 mui-textfield" id="textfield-custom">
+                            <input type="text" ng-model="fondo.linea_nego" readonly>
+                            <label>Linea Nego.</label>
+                        </div>
+                        <div class="mui-col-md-2 mui-textfield">
+                            <input type="number" ng-model="fondo.monto">
+                            <label>Monto</label>
+                        </div>
+                        <div class="mui-col-md-2 mui-textfield" id="textfield-custom">
+                            <input type="text" ng-model="fondo.mes" readonly>
+                            <label>Mes</label>
+                        </div>
+                    </div>
+                    <div class="mui-row">
+                        <div class="mui-col-md-12">
+                            <div class="mui--text-center">
+                                <button type="submit" class="mui-btn mui-btn--small mui-btn--primary" title="Guardar">Guardar <i class="far fa-check-circle"></i></button>
+                                <a href="/index.html#/admin_fond" class="mui-btn mui-btn--small mui-btn--danger" title="Cancelar">Cancelar <i class="fas fa-times-circle"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+GoogleAppEngineCloudStorageClient==1.9.22.1
+
+function CreateStyle() {
+		var estilo = '<style>'+
+		'.pagination-panel{'+
+			'position: relative;'+
+			'display: inline-block;'+
+			'height:'+alto+';'+
+			'border: 0px solid #2e6da4;'+
+            'margin-bottom: 0px;'+
+		'}'+
+		'.pagination-panel .indicator{'+
+			'color: rgb(31, 63, 121);'+
+			'font-weight: bold;'+
+			'font-size: 15px;'+
+			'padding: 10px;'+
+			'line-height: 0;'+
+            'margin-right: 10px;'+
+            'margin-left: 10px;'+
+		'}'+
+		'.pagination-panel button{'+
+			'color: rgb(31, 63, 121);'+
+			'height: 20px;'+
+            'width: 110px;'+
+            'padding-left: 10px;'+
+            'padding-right: 10px;'+
+			'border: 1px solid rgb(31, 63, 121);;'+
+            'border-radius: 15px;'+
+			'cursor: pointer;'+
+            'background-color: transparent;'+
+		'}'+
+		'.pagination-panel button:hover{'+
+			'background-color: rgba(171, 183, 209, 0.1);'+
+		'}'+
+        'button:focus { outline:0 !important; }' +
+		'.pagination-panel button[disabled]{'+
+            'visibility: hidden;'
+			'color: #506E7D;'+
+			'background-color: #D1D5D8;'+
+			'cursor: not-allowed;'+
+		'}'+
+		'</style>';
+		angular.element(document.head).prepend(estilo);
+	}

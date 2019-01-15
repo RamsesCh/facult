@@ -1,0 +1,21 @@
+<md-dialog>
+  <form ng-cloak layout-padding="">
+    <md-dialog-content >
+      <div class="dialog-cont">
+        <img src="../images/vectorBienvenido3X@2x.png">
+        <h3>La solicitud de facultamiento se creo exitosamente.</h3>
+        <br>
+        <p  class="title">Se envió un correo electrónico al funcionario</p>
+        <br>
+        <p  class="title">Folio de la solicitud: 0001</p>
+        <p>{{facult.name}}</p>
+      </div>
+    </md-dialog-content>
+    
+    <md-dialog-actions layout="row" layout-align="center center">
+      <md-button class="md-raised md-warn" ng-click="cancel()">
+       CERRAR
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

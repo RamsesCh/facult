@@ -1,0 +1,154 @@
+<div class="nuevo-fac-tit">
+    <div class="nom-secc">ADMINISTRAR FONDOS</div>
+    <div class="group-filters">
+        <div class="mui-select dropfilter">
+            <select ng-model="filterbyRamo">
+                <option value="">Todos los ramos</option>
+                <option value="GMM">GMM</option>
+                <option value="Autos">Autos</option>
+            </select>
+        </div>
+        <div class="mui-select dropfilter">
+            <select ng-model="filterbyLinea">
+                <option value="">Todas las lineas</option>
+                <option value="LP">LP</option>
+                <option value="LC">LC</option>
+            </select>
+        </div>
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input class="search-input" type="search" placeholder="Buscar" ng-pagination-search="listFondos">
+        </div>
+        <div class="mui-row mui--text-center" style="margin: 0px !important;">
+            <ng-pagination-control pagination-id="listFondos" color="white" height="35px"></ng-pagination-control>
+        </div>
+    </div>
+</div>
+
+<div class="panel">
+    <table class="mui-table mui-table--bordered" id="table-home">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Funcionario</th>
+                <th>Ramo</th>
+                <th>Linea Nego.</th>
+                <th>Monto</th>
+                <th>Mes</th>
+                <th>Año</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="row-table" ng-pagination="fondo in listFondos | filter:filterbyRamo | filter:filterbyLinea | orderBy:'id_fondo'" ng-pagination-size="10">
+                <td>
+                    <i ng-if="fondo.activo == '1'" class="fas fa-user-check UserActivo"></i>
+                    <i ng-if="fondo.activo == '0'" class="fas fa-user-times UserBaja"></i>
+                </td>
+                <td>{{fondo.funcionario | uppercase}}</td>
+                <td>{{fondo.ramo}}</td>
+                <td>{{fondo.linea_nego}}</td>
+                <td>{{fondo.monto|currency}}</td>
+                <td>{{fondo.mes}}</td>
+                <td>{{fondo.year}}</td>
+                <td><a href="" ng-click="updateFondo(fondo)" title="EDITAR"><i class="fas fa-edit"></i></a></td>
+            </tr>
+            <tr>
+                <td colspan="8">
+                    <div>
+                        <a href="" ng-click="activarAltaFondo()" id="btn_custom">Agregar nuevo <i class="fas fa-plus-circle"></i></a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="8">
+                   <div>
+                        <a href="" ng-click="resetFondos()">Preparar fondos para el próximo mes <i class="fas fa-hand-holding-usd"></i></a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div ng-hide="1>0" class="mui-row mui--text-center">
+        <ng-pagination-control pagination-id="listFondos" color="white" height="35px"></ng-pagination-control>
+    </div>
+    <div class="mui-row" ng-if="ban_fondo == 1">
+        <div class="mui-container-fluid">
+            <div class="mui-form--inline">
+                <div class="mui-col-md-6 mui-select mui-select--float-label">
+                    <select type="text" ng-model="id_user">
+                        <option value=""> </option>
+                        <option ng-repeat="func in catFuncs | orderBy:'nombre'" value="{{func.id_usuario}}">{{func.nombre + " " + func.ap_pat + " " + func.ap_mat | uppercase}}</option>
+                    </select>
+                    <label>Funcionario *</label>
+                </div>
+                <div class="mui-col-md-3 mui-select mui-select--float-label">
+                    <select type="text" ng-model="id_ramo">
+                        <option ng-repeat="ramo in catRamos" value="{{ramo.id_ramo}}">{{ramo.ramo | uppercase}}</option>
+                    </select>
+                    <label>Ramo *</label>
+                </div>
+                <div class="mui-col-md-3 mui-select mui-select--float-label">
+                    <select type="text" ng-model="id_linea_nego">
+                        <option ng-repeat="linea_nego in cat_linea_nego" value="{{linea_nego.id_linea_nego}}">{{linea_nego.linea_nego}}</option>
+                    </select>
+                    <label>Linea Nego. *</label>
+                </div>
+                <div class="mui-col-md-3 mui-select mui-select--float-label" id="space-top2">
+                    <select type="text" ng-model="mes">
+                        <option value=""> </option>
+                        <option value="01">Enero</option>
+                        <option value="02">Febrero</option>
+                        <option value="03">Marzo</option>
+                        <option value="04">Abril</option>
+                        <option value="05">Mayo</option>
+                        <option value="06">Junio</option>
+                        <option value="07">Julio</option>
+                        <option value="08">Agosto</option>
+                        <option value="09">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre</option>
+                    </select>
+                    <label>Mes *</label>
+                </div>
+                <div class="mui-col-md-3 mui-select mui-select--float-label" id="space-top2">
+                    <select type="text" ng-model="year">
+                        <option value=""> </option>
+                        <option value="2018">2018</option>
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                    </select>
+                    <label>Año *</label>
+                </div>
+                <div class="mui-col-md-3 mui-textfield mui-textfield--float-label" id="space-top2">
+                    <input type="number" ng-model="monto" class="text-upp">
+                    <label>Monto *</label>
+                </div>
+                <div class="mui-col-md-3 mui-textfield mui-textfield--float-label mui--text-right" id="space-top2">
+                    <button ng-click="altaFondo(id_user,id_ramo,id_linea_nego,mes,year,monto)" class="mui-btn mui-btn--small mui-btn--primary" title="Guardar">Guardar <i class="far fa-check-circle"></i></button>
+                    <button class="mui-btn mui-btn--small mui-btn--danger" ng-click="cancelaFondo()" title="Cancelar">Cancelar <i class="fas fa-times-circle"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ <script type="text/ng-template" id="modalDialogId">
+        <div class="ngdialog-message">
+           <h3><strong>¿Deseas actualizar los fondos?</strong></h3>
+            <p>Si seleccionas <strong>CONTINUAR</strong> el sistema preparará el catálogo de fondos para el próximo mes, esta acción solo se debe realizar de forma mensual e incluirá solo a los funcionarios <strong style="color: #2ecc71">ACTIVOS.</strong></p>
+        </div>
+        <div class="ngdialog-buttons mui--text-right">
+            <button class="mui-btn mui-btn--small mui-btn--flat" ng-click="closeThisDialog()">CANCELAR</button>
+            <button class="mui-btn mui-btn--small mui-btn--primary" ng-click="confirm()">CONTINUAR</button>
+        </div>
+    </script>

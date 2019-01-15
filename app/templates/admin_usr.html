@@ -1,0 +1,119 @@
+<div class="nuevo-fac-tit">
+    <div class="nom-secc">ADMINISTRAR USUARIOS</div>
+    <div class="group-filters">
+        <div class="mui-select dropfilter">
+            <select ng-model="filterbyDirecc">
+               <option value="">Todas las direcciones</option>
+                <option ng-repeat="direcc in catDirecciones|orderBy:'direccion'" ng-value="direcc.direccion">{{direcc.direccion | uppercase}}</option>
+            </select>
+        </div>
+        <div class="mui-select dropfilter">
+            <select ng-model="filterbyPuesto">
+                <option value="">Todos los puestos</option>
+                <option ng-repeat="puesto in catPuestos|orderBy:'puesto'" ng-value="puesto.puesto">{{puesto.puesto|uppercase}}</option>
+            </select>
+        </div>
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input class="search-input" type="search" placeholder="Buscar" ng-pagination-search="users">
+        </div>
+        <div class="mui-row mui--text-center" style="margin: 0px !important;">
+            <ng-pagination-control pagination-id="users" color="white" height="35px"></ng-pagination-control>
+        </div>
+    </div>
+</div>
+<div class="panel" style="width: 98% !important;">
+    <table class="mui-table mui-table--bordered" id="table-home">
+        <thead>
+            <tr>
+                <th>Fecha de Alta</th>
+                <th>E-mail</th>
+                <th>Nombre</th>
+                <th>Dirección</th>
+                <th>Puesto</th>
+                <th>Aspecto</th>
+                <th>Perfil</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="row-table" ng-pagination="user in users | filter:filterbyDirecc | filter:filterbyPuesto | orderBy:'-id_usuario'" ng-pagination-size="10">
+                <td>{{user.fecha_alta}}</td>
+                <td>{{user.email | uppercase}}</td>
+                <td>{{user.nombre + " " + user.ap_pat + " " + user.ap_mat | uppercase}}</td>
+                <td>{{user.direccion | uppercase}}</td>
+                <td>{{user.puesto | uppercase}}</td>
+                <td>{{user.aspecto | uppercase}}</td>
+                <td>{{user.perfil | uppercase}}</td>
+                <td>
+                    <!--<div ng-class="{badgeUserActivo: user.activo == '1', badgeUserBaja: user.activo == '0'}"></div>-->
+                    <i ng-if="user.activo == '1'" class="fas fa-user-check UserActivo"></i>
+                    <i ng-if="user.activo == '0'" class="fas fa-user-times UserBaja"></i>
+                </td>
+                <td><a href="#/editUser/{{user.id_usuario}}" ng-click="update(user)" title="EDITAR"><i class="fas fa-edit"></i></a></td>
+            </tr>
+        </tbody>
+        <tr>
+            <td colspan="8">
+                <div>
+                    <a href="" ng-click="activarAltaUser()" id="btn_custom">Agregar nuevo <i class="fas fa-plus-circle"></i></a>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div class="mui-row" ng-if="ban_user == 1">
+       <div class="mui-container-fluid">
+           <div class="mui-form--inline">
+           <div class="mui-col-md-3 mui-textfield mui-textfield--float-label">
+                <input type="text" ng-model="email" class="text-upp">
+                <label>E-mail *</label>
+            </div>
+            <div class="mui-col-md-3 mui-textfield mui-textfield--float-label">
+                <input type="text" ng-model="nombre" class="text-upp">
+                <label>Nombre (s) *</label>
+            </div>
+            <div class="mui-col-md-3 mui-textfield mui-textfield--float-label">
+                <input type="text" ng-model="ap_pat" class="text-upp">
+                <label>Apellido Paterno *</label>
+            </div>
+            <div class="mui-col-md-3 mui-textfield mui-textfield--float-label">
+                <input type="text" ng-model="ap_mat" class="text-upp">
+                <label>Apellido Materno *</label>
+            </div>
+            <div class="mui-col-md-2 mui-select mui-select--float-label" id="space-top2">
+                <select type="text" ng-model="id_perfil">
+                        <option ng-repeat="perfil in catPerfiles" value="{{perfil.id_perfil}}">{{perfil.perfil}}</option>
+                    </select>
+                <label>Perfil *</label>
+            </div>
+            <div class="mui-col-md-2 mui-select mui-select--float-label" id="space-top2">
+                <select type="text" ng-model="id_aspecto">
+                        <option ng-repeat="aspecto in catAspectos" value="{{aspecto.id_aspecto}}">{{aspecto.aspecto}}</option>
+                    </select>
+                <label>Aspecto *</label>
+            </div>
+            <div class="mui-col-md-2 mui-select mui-select--float-label" id="space-top2">
+                <select type="text" ng-model="id_puesto">
+                        <option ng-repeat="puesto in catPuestos" value="{{puesto.id_puesto}}">{{puesto.puesto}}</option>
+                    </select>
+                <label>Puesto *</label>
+            </div>
+            <div class="mui-col-md-3 mui-select mui-select--float-label" id="space-top2">
+                <select type="text" ng-model="id_direccion">
+                        <option ng-repeat="direccion in catDirecciones" value="{{direccion.id_direccion}}">{{direccion.direccion | uppercase}}</option>
+                    </select>
+                <label>Dirección *</label>
+            </div>
+            <div class="mui-col-md-3 mui-textfield mui-textfield--float-label mui--text-right" id="space-top2">
+                <button ng-click="altaUser(email,nombre,ap_pat,ap_mat,id_perfil,id_aspecto,id_puesto,id_direccion)" class="mui-btn mui-btn--small mui-btn--primary" title="Guardar">Guardar <i class="far fa-check-circle"></i></button>
+                <button class="mui-btn mui-btn--small mui-btn--danger" ng-click="cancelaUser()" title="Cancelar">Cancelar <i class="fas fa-times-circle"></i></button>
+            </div>
+        </div>
+       </div>
+    </div>
+    <div class="mui-row mui--text-center" id="row_minus" ng-hide="1 > 0">
+        <ng-pagination-control pagination-id="users" color="white" height="35px"></ng-pagination-control>
+    </div>
+
+</div>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html ng-app="App3">
+<head>
+    <meta charset="UTF-8">
+    <meta name="google-signin-client_id" content="908800123283-of6c10blv80438enc30j3n5oc52is2gj.apps.googleusercontent.com">
+
+    <title>GESTIÓN DE FAE´S</title>
+    <link href="/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="favicon.png" rel="icon">
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <!-- load MUI -->
+    <link href="//cdn.muicss.com/mui-0.9.39/css/mui.min.css" rel="stylesheet" type="text/css" />
+    <script src="//cdn.muicss.com/mui-0.9.39/js/mui.min.js"></script>
+
+    <!--FONTS AWESOME-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+</head>
+
+<body ng-controller="gac">
+    <div class="all">
+        <div class="encab">
+            <div class="left">
+                <img class="logo" src="images/gnPicono@2x.png">
+                <div class="vertical-split"></div>
+                <div class="title">
+                    GESTIÓN DE FAE´S
+                </div>
+            </div>
+        </div>
+        <div class="nav-bar"></div>
+        <div class="content">
+            <div class="mui-container-fluid">
+                <div class="mui-row">
+                    <div class="mui-col-xs-12 mui-col-md-4 mui-col-md-offset-4">
+                        <div class="panel">
+                            <div class="mui-container mui--text-center">
+                                <div class="mui-row">
+                                    <div class="mui-col-md-12">
+                                       <div class="back-login"></div>
+                                        <img ng-show="user.photo" ng-src="{{user.photo}}" alt="" class="image-login">
+                                        <p class="name-login">
+                                            {{user.firstName}}
+                                            <br>
+                                            {{user.lastName}}
+                                        </p>
+                                        <p class="email-login">{{user.email}}</p>
+                                    </div>
+                                    <div class="mui-col-md-12 mui--text-center" ng-hide="user.email">
+                                        <button id="signin" class="g-signin2"></button>
+                                    </div>
+                                </div>
+                                <div class="mui-row">
+                                    <div class="mui-col-md-12" ng-show="user.email">
+                                        <button class="mui-btn mui-btn--flat mui-btn--primary" ng-click="submitLogin()">Continuar >></button>
+                                    </div>
+                                </div>
+                                <!--
+                                <div class="mui-row" ng-show="solicAccesAlert">
+                                    <div class="mui-col-md-10 mui-col-md-offset-1">
+                                        <div class="no-access" ng-click="solicAcces()">
+                                            <p>Solicitar acceso.</p>
+                                        </div>
+                                    </div>
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-gral">
+        <div class="aviso-privac">
+            Consulta nuestro aviso de privacidad en www.gnp.com.mx
+        </div>
+        <div class="footer">
+            <img src="images/slogan@2x.png" alt="">
+        </div>
+    </div>
+
+
+    <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.4.6/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script src="https://rawgithub.com/gsklee/ngStorage/master/ngStorage.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    
+    
+    <script src="js/app.js"></script>
+    <script src="js/helpers.js"></script>
+    <script src="js/angular-pagination.js"></script>
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=appStart" async defer></script>
+
+</body>
+
+</html>

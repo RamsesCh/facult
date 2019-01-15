@@ -1,0 +1,36 @@
+service: facultamiento
+runtime: python27
+api_version: 1
+threadsafe: true
+
+
+handlers: 
+- url: /rest/.*
+  script: main.APP
+
+- url: /(.+)
+  static_files: app/\1
+  upload: app/.*
+
+- url: /
+  static_files: app/login.html
+  upload: app/login.html
+
+- url: /favicon\.png
+  static_files: app/images/favicon.png
+  upload: app/images/favicon\.png
+
+libraries:
+- name: MySQLdb
+  version: "latest"
+
+
+
+# [START env_variables]
+env_variables:
+    CLOUDSQL_CONNECTION_NAME: gnp-infra-159601:us-central1:gnp-infra
+    CLOUDSQL_USER: GnpAdmin
+    CLOUDSQL_PASSWORD: GnpAdmin
+    CLOUDSQL_DB: facultamiento_bd
+    BUCKET: /facult-develop
+# [END env_variables]
